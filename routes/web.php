@@ -39,3 +39,7 @@ Route::get('/produtos/calcados',[ProdutosController::class, 'calcados'])->name('
 Route::get('/produtos/inverno',[ProdutosController::class, 'inverno'])->name('inverno');
 Route::get('/produtos/verao',[ProdutosController::class, 'verao'])->name('verao');
 Route::get('/produtos/diversos',[ProdutosController::class, 'diversos'])->name('diversos');
+
+Route::get('/usuarios/perfil',[UsuariosController::class,'perfil'])->name('usuario.perfil');
+Route::post('/usuarios/perfil',[UsuariosController::class,'editarPerfil'])->name('perfil.gravar');
+

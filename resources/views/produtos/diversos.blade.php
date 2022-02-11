@@ -34,12 +34,12 @@
                             @if($img->id_produto == $prod->id)
                                 @if($count==0)
                                     <div class="carousel-item active">
-                                    <img src="{{"../img/".$img->imagem}}" style="max-height:300px" class="d-block w-100 " alt="{{$prod->nome}}">
+                                    <img src="{{"../img/".$img->imagem}}" style="height:300px" class="d-block w-100 " alt="{{$prod->nome}}">
                                     </div>
                                     @php {{$count= $count+1;$countS++;}} @endphp
                                 @else
                                     <div class="carousel-item">
-                                    <img src="{{"../img/".$img->imagem}}" style="max-height:300px" class="d-block w-100" alt="{{$prod->nome}}">
+                                    <img src="{{"../img/".$img->imagem}}" style="height:300px" class="d-block w-100" alt="{{$prod->nome}}">
                                     </div>
                                     @php {{$count= $count+1;$countS++;}} @endphp
                                 @endif

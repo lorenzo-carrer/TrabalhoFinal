@@ -56,7 +56,7 @@
     <main class="form-signin">
       <form  method="post" action="{{ route('usuarios.gravar')}}">
       @csrf
-        <img class="mx-auto mb-5" width="300px" src="img/logo.png" alt="" >
+        <img class="mx-auto mb-5" width="300px" src="../img/logo.png" alt="" >
     
         <div class="form-floating">
           <input type="email" class="form-control" id="email" name="email"placeholder="nome@exemplo.com">

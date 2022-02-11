@@ -72,7 +72,7 @@
             <input type="checkbox" value="remember-me"> Lembre-se de mim
           </label>
         </div>
-        <a href="esqueceu.html" class=" w-100 link-dark">Esqueceu a senha?</a><br/>
+       
         <a href="{{route('usuarios.inserir')}}" class="link-dark">Registre-se</a>
         <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">Logar</button>
       </form>
