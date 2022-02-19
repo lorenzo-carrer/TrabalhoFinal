@@ -69,7 +69,13 @@
                         @endif    
                         @endforeach
                         </a><br>
-                        <a href="#" class="btn btn-dark mt-3">Adicionar ao carrinho</a>
+                        <form action="{{route('carrinho.compras')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="id_produto" value="{{$prod->id}}">
+                        <input type="number" value="1" name="quantidade" class= "text-sm sm:text-base">
+                        <button type="submit" class="btn btn-dark mt-3">Adicionar ao carrinho</button>
+                        </form>
+
                     </div>
                 </div>
             <!--Termina-->

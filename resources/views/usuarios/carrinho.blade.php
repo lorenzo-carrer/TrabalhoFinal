@@ -1,14 +1,20 @@
 @extends('template.template')
-@section('title', 'Calçados')
-@section('h1', 'Calçados')
-
+@section('title', 'Carrinho de Compras')
+@section('h1', 'Carrinho')
 @section('content')
- <div class="row p-3">
+<div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="../../img/logo.png" alt="logo"  height="100px">
+      <h2>Carrinho de compras ({{\Gloudemans\Shoppingcart\Facades\Cart::content ()->count()}})</h2>
+      <p class="lead">Veja seus itens no carrinho e finalize sua compra</p>
+    </div>
 
-    @php {{$countCard=0;}} @endphp
+
+     @php {{$countCard=0;}} @endphp
+    @foreach($cart as $cart)        
+    
     @foreach($prods as $prod)
         @php {{$count=0; $countS=0;}} @endphp
-        @if($prod->categoria == "calcados")
+        @if($prod->id == $cart->id)
              <!--Comeca-->
                 <div class="card m-3" style="width: 18rem;">
 
@@ -62,6 +68,7 @@
                         <h5 class="card-title">{{$prod->nome}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{$prod->preco}}</h6>
                         <p class="card-text">{{$prod->desc}}</p>
+                          <p class="card-text">Quantidade: {{$cart->qty}}</p>
                         <a href="#" class="link-dark">
                         @foreach($users as $user)
                         @if($user->id == $prod->id_usuario)
@@ -69,11 +76,10 @@
                         @endif    
                         @endforeach
                         </a><br>
-                        <form action="{{route('carrinho.compras')}}" method="post">
+                        <form action="{{route('carrinho.remove',$prod)}}" method="post">
                         @csrf
                         <input type="hidden" name="id_produto" value="{{$prod->id}}">
-                        <input type="number" value="1" name="quantidade" class= "text-sm sm:text-base">
-                        <button type="submit" class="btn btn-dark mt-3">Adicionar ao carrinho</button>
+                        <button type="submit" class="btn btn-danger mt-3">Remover do carrinho</button>
                         </form>
 
                     </div>
@@ -82,7 +88,14 @@
         @endif
         @php {{$countCard=$countCard+1;}} @endphp
     @endforeach
+    @endforeach
 
+        <form action="#" method="POST" class="needs-validation" novalidate="">
+        @csrf
+          <button  disabled class="w-100 btn btn-primary btn-lg" type="comprar">Estamos em Manutenção, finalize sua compra mais tarde</button>
+        </form>
+      </div>
+    </div>
 @endsection
-@push('scripts')
-@endpush
+@section('script')
+@endsection

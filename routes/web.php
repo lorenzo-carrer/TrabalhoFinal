@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarrinhosController;
 use App\Http\Controllers\Produtos_ImagensController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\UsuariosController;
@@ -53,4 +54,9 @@ Route::get('/produtos/diversos',[ProdutosController::class, 'diversos'])->name('
 
 Route::get('/usuarios/perfil',[UsuariosController::class,'perfil'])->name('usuario.perfil');
 Route::post('/usuarios/perfil',[UsuariosController::class,'editarPerfil'])->name('perfil.gravar');
+
+
+Route::get('/usuarios/carrinho',[CarrinhosController::class,'index'])->name('carrinho.index');
+Route::post('/usuarios/carrinho',[CarrinhosController::class,'store'])->name('carrinho.compras');
+Route::post('/usuarios/carrinho/{prod}',[CarrinhosController::class,'remove'])->name('carrinho.remove');
 
