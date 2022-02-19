@@ -69,12 +69,17 @@
                         @endif    
                         @endforeach
                         </a><br>
+                        @if (session('usuario'))
                         <form action="{{route('carrinho.compras')}}" method="post">
                         @csrf
                         <input type="hidden" name="id_produto" value="{{$prod->id}}">
                         <input type="number" value="1" name="quantidade" class= "text-sm sm:text-base">
                         <button type="submit" class="btn btn-dark mt-3">Adicionar ao carrinho</button>
                         </form>
+                        @else
+                         <a href="{{ route('login') }}" role="button" class="btn btn-warning me-2">Login</a>
+                         <a href="{{ route('usuarios.inserir') }}" role="button" class="btn btn-warning">Cadastro</a>
+                        @endif
 
                     </div>
                 </div>
