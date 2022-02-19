@@ -88,6 +88,109 @@ class ProdutosController extends Controller
         return redirect()->route('home');
     }
 
+
+    public function update(Request $form, $prod){
+        $produtos = Produto::orderBy('id', 'desc')->get();
+        
+        foreach($produtos as $produt){
+            if($produt->id == $prod){
+                $produto = $produt;
+            }
+        }
+        
+        if(isset($form->nome)){$produto->nome = $form->nome;}
+        if(isset($form->preco)){$produto->preco = $form->preco;}
+        if(isset($form->desc)){ $produto->desc = $form->desc;}
+        if(isset($form->categoria)){ $produto->categoria = $form->categoria;}
+        
+        $produto->save();
+
+        $count = 1;
+       while($count<=5){
+        if(isset($form->{'imagem'.$count})){
+            //salvando imagem
+            
+            $img = new Produtos_Imagen();
+
+            // Image Upload
+            if($form->hasFile('imagem'.$count) && $form->file('imagem'.$count)->isValid()) {
+                    $requestImage = $form->{'imagem'.$count};
+                    $extension = $requestImage->extension();
+
+                    //criptografa o arquivo e torna ele único com o 'strtotime'
+                    $imgName = md5($requestImage->getClientoriginalName(). strtotime("now")) . "." . $extension;
+                    
+                    //vai salvar o arquivo na pasta public
+                    $form->{'imagem'.$count}->move(public_path('img/'),$imgName);
+                    $img->imagem = $imgName;
+                    $img->id_produto = $prod->id;
+
+                }
+
+                $img->save();
+
+            }
+
+            $count= $count+1;
+        }
+
+
+
+       
+
+
+        
+        return redirect()->route('home');
+    }
+
+
+    public function remove(Produto $prod)
+    {
+        return view('produtos.apagar', ['prod' => $prod]);
+    }
+    public function delete(Produto $prod)
+    {
+        $produtos = Produto::orderBy('id', 'desc')->get();
+        $estoques = Estoque::orderBy('id', 'desc')->get();
+        $imagens = Produtos_Imagen::orderBy('id', 'desc')->get();
+        $prodEstoques = Produtos_Estoque::get();  
+
+        foreach($prodEstoques as $prodEstq){
+            if($prodEstq->id_produto == $prod->id){
+                foreach($estoques as $estoque){
+                    if($prodEstq->id_estoque == $estoque->id){
+                        $prodEstq->where('id_produto', '=', $prod->id)->delete();
+                        $estoque->delete();
+                        
+                    }
+                }
+            }
+        }
+        foreach($imagens as $img){
+            if($img->id_produto == $prod->id){
+                $img->delete();
+            }
+        }
+
+        $prod->delete();
+        
+
+
+        return redirect()->route('home');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function meusProdutos(){
         $produtos = Produto::orderBy('id', 'desc')->get();
         $estoques = Estoque::orderBy('id', 'desc')->get();
@@ -134,5 +237,15 @@ class ProdutosController extends Controller
         $usuarios = Usuario::orderBy('id', 'asc')->get();
         return view('produtos.diversos',['prods' => $produtos,'estqs' => $estoques, 'imgs' => $imagens, 'prodEstqs' => $prodEstoques,'users'=>$usuarios, $count=0]);
     }
+
+
+    public function edit(Produto $prod){
+        $estoques = Estoque::orderBy('id', 'desc')->get();
+        $imagens = Produtos_Imagen::orderBy('id', 'desc')->get();
+        $prodEstoques = Produtos_Estoque::get();
+        return view('produtos.edit', ['prod' => $prod,'estqs' => $estoques, 'imgs' => $imagens,'prodEstqs' => $prodEstoques]);
+    }
+
+
 
 }

@@ -72,23 +72,25 @@ class UsuariosController extends Controller
 
     public function perfil()
     {
-        return view('usuarios.perfil');
+        $usuarios = Usuario::orderBy('id', 'asc')->get();
+
+        return view('usuarios.perfil',['users'=>$usuarios]);
     }
 
     public function editarPerfil(Request $form)
     {
         $usuario = session('usuario');
 
-        if(isset($form->imagem)){ $usuario->nome = $form->nome;}
-        if(isset($form->imagem)){$usuario->sobrenome = $form->sobrenome;}
-        if(isset($form->imagem)){ $usuario->usuario = $form->usuario;}
-        if(isset($form->imagem)){ $usuario->celular = $form->celular;}
-        if(isset($form->imagem)){$usuario->endereco = $form->endereco;}
-        if(isset($form->imagem)){ $usuario->complemento = $form->complemento ;}
-        if(isset($form->imagem)){$usuario->cep = $form->cep;}
-        if(isset($form->imagem)){$usuario->estado = $form->estado;}
-        if(isset($form->imagem)){$usuario->descEmp = $form->descEmp ;}
-        if(isset($form->imagem)){ $usuario->detalhes = $form->detalhes;}
+        if(isset($form->nome)){ $usuario->nome = $form->nome;}
+        if(isset($form->sobrenome)){$usuario->sobrenome = $form->sobrenome;}
+        if(isset($form->usuario)){ $usuario->usuario = $form->usuario;}
+        if(isset($form->celular)){ $usuario->celular = $form->celular;}
+        if(isset($form->endereco)){$usuario->endereco = $form->endereco;}
+        if(isset($form->complemento)){ $usuario->complemento = $form->complemento ;}
+        if(isset($form->cep)){$usuario->cep = $form->cep;}
+        if(isset($form->estado)){$usuario->estado = $form->estado;}
+        if(isset($form->descEmp)){$usuario->descEmp = $form->descEmp ;}
+        if(isset($form->detalhes)){ $usuario->detalhes = $form->detalhes;}
 
         $usuario->save();
 

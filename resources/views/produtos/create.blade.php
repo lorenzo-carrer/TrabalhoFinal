@@ -41,8 +41,7 @@
                 </div>
 
                 <div class="col-12">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea id="desc" required="" name='desc' class="form-control"></textarea>
+                     
                     <div class="invalid-feedback">
                         Descrição é requirida.
                     </div>

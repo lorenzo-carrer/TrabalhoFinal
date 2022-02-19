@@ -31,11 +31,11 @@
         </ul>
 
       
-        <a href="{{route('home')}}" class="mx-auto" ><img src="../img/logo.png" height="70px" alt="logo"></a>
+        <a href="{{route('home')}}" class="mx-auto" ><img src="../../img/logo.png" height="70px" alt="logo"></a>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
         @csrf
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          <input type="search" disabled class="form-control" placeholder="Search..." aria-label="Search">
         </form>
 
 
@@ -49,7 +49,7 @@
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="@if(null !== session('usuario')->imagem) ../img/{{session('usuario')->imagem}}@else https://github.com/mdo.png @endif" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="@if(null !== session('usuario')->imagem) ../../img/{{session('usuario')->imagem}}@else https://github.com/mdo.png @endif" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="{{ route('usuario.perfil') }}">Meu perfil</a></li>
